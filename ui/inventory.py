@@ -1,16 +1,11 @@
 import psycopg2
+from database_settings import db_params
 
 def get_inventory():
-    HOSTNAME = 'localhost'
-    USERNAME = 'postgres'
-    PASSWORD = 'Yehonatan8448'
-    DATABASE = 'bookify_db'
-    PORT = '5432'
-
     table_headers = ['ID', 'TITLE', 'AUTHORS', 'PUBLISHER', 'PUBLISHER-DATE', 'DESCRIPTION', 'PAGE-COUNT', 'GENRE', 'AVERAGE-RATING', 'MATURITY-RATING', 'SMALL-THUMBNAIL', 'LANGUAGE', 'PRICE', 'BOOK-LANGUAGE', 'STOCK']
 
     try:
-        connection = psycopg2.connect(host=HOSTNAME, user=USERNAME, password=PASSWORD, dbname=DATABASE, port=PORT)
+        connection = psycopg2.connect(**db_params)
 
         cursor = connection.cursor()
 
