@@ -1,11 +1,6 @@
 
-from book import Book
-from customer import Customer
-
-import os
-import sys
-# Add the parent directory to the sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from .book import Book
+from .customer import Customer
 
 import db_functions
 

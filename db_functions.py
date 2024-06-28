@@ -8,7 +8,7 @@ PASSWORD = "cluster"
 DBNAME = "bookify"
 
 def create_connection():
-    connection = psycopg2.connnect(
+    connection = psycopg2.connect(
         host=HOST, port=PORT, user=USER, password=PASSWORD, dbname=DBNAME
     )
     cursor = connection.cursor()
