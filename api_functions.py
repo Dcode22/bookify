@@ -18,18 +18,22 @@ def search_books(book_name: str, amount_of_books: int) -> list:
             image_links = volume_info.get('imageLinks', {})
 
             list_of_filtered_books.append({
-                'id': book.get('id'),
+                'book_id': book.get('id'),
                 'title': volume_info.get('title'),
-                'authors': volume_info.get('authors'),
-                'publisher': volume_info.get('publisher'),
-                'publishedDate': volume_info.get('publishedDate'),
                 'description': volume_info.get('description'),
-                'pageCount': volume_info.get('pageCount'),
+                'authors': volume_info.get('authors'),
                 'genre': volume_info.get('categories'),
-                'averageRating': volume_info.get('averageRating'),
-                'maturityRating': volume_info.get('maturityRating'),
-                'smallThumbnail': image_links.get('smallThumbnail'),
-                'language': volume_info.get('language')
+                'published_date': volume_info.get('publishedDate'),
+                'language': volume_info.get('language'),
+                'page_count': volume_info.get('pageCount'),
+                'cover_image_url': image_links.get('smallThumbnail'),
+                'publisher': volume_info.get('publisher'),
+                'avg_rating': volume_info.get('averageRating'),
+                'maturity_rate': volume_info.get('maturityRating'),
+                'buying price' : 10,
+                'selling_price' : 20,
+                'amount_total' : 100,
+                'amount_available' : 100 
             })
 
         return list_of_filtered_books

@@ -67,6 +67,9 @@ class Book:
         self.amount_available += amount
         self.amount_total += amount
 
+
+    def get_title(self):
+        return self.title
     
 
     def to_dict (self):

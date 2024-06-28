@@ -1,6 +1,12 @@
+
 from book import Book
 from customer import Customer
-import psycopg2
+
+import os
+import sys
+# Add the parent directory to the sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import db_functions
 
 
@@ -70,3 +76,12 @@ class Library:
         price = book.selling_price
         self.budget += price
         customer.add_book(book)
+
+
+    def from_dict(inventory_json : list[dict]) -> list['Book']:
+        inventory = []
+        for book_as_json in inventory_json:
+            book = Book.from_dict(book_as_json)
+            inventory.append(book)
+            
+        return inventory
