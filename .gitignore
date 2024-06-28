@@ -1,1 +1,5 @@
 bookify_project/
+database_settings.py
+__pycache__/
+ui/__pycache__/
+**/__pycache__/
