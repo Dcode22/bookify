@@ -1,4 +1,4 @@
-from book import Book
+from .book import Book
 
 class Customer:
     def __init__(self, customer_id : int, first_name : str, last_name : str, email : str, phone : str, books_list : list['Book']):

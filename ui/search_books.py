@@ -2,19 +2,20 @@ import api_functions
 import db_functions
 import classes.library as library
 
-
+ 
 
 
 def search_books():  
 
-    inventory_json = db_functions.get_table_as_json(table_name = 'books') #need to implement
+    inventory_json = db_functions.get_table_as_json_array(table_name = 'books') 
     inventory = library.from_dict(inventory_json)
 
     amount_of_search_results = 10   
     print('(1) Search books')  
     query = input("\t- search for a book by title: ")
     books_results = api_functions.search_books(query , amount_of_search_results) #search_books function is needed. return here a list of book objects. randomize a price for the book object
-    
+    books_results = library.from_dict(books_results)
+
     print(f'\t\t-- Top {amount_of_search_results} books matching your search results: ')
     print(f'\t\t\tID | TITLE')
     for id,book in enumerate(books_results):

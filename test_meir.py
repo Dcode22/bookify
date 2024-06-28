@@ -1,6 +1,5 @@
-from .manage_customers import manage_customers
-from .inventory import get_inventory
-from .search_books import search_books
+import api_functions
+from ui.search_books import search_books
 
 menu_msg = ''' 
         Menu :
@@ -15,10 +14,8 @@ def display_menu():
     if choice == '1':
         search_books()
     elif choice == '2':
-        get_inventory()
         return
     elif choice == '3':
-        manage_customers()
         return
     elif choice == 'x':
         return
@@ -27,3 +24,15 @@ def display_menu():
         display_menu()
     
     
+
+
+def main():
+    welcome_msg = '''
+    ------------Welcome to Bookify!------------
+    ---The World's #1 Book Management System---'''
+    print(welcome_msg)
+    while True:
+        display_menu()
+
+if __name__ == '__main__':
+    main()

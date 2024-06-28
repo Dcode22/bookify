@@ -1,6 +1,7 @@
-from book import Book
-from customer import Customer
-import psycopg2
+
+from .book import Book
+from .customer import Customer
+
 import db_functions
 
 
@@ -70,3 +71,12 @@ class Library:
         price = book.selling_price
         self.budget += price
         customer.add_book(book)
+
+
+    def from_dict(inventory_json : list[dict]) -> list['Book']:
+        inventory = []
+        for book_as_json in inventory_json:
+            book = Book.from_dict(book_as_json)
+            inventory.append(book)
+            
+        return inventory
