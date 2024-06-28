@@ -70,9 +70,8 @@ def search_customers():
             if confirmation == 'yes':
                 conn = psycopg2.connect(**db_params)
                 cur = conn.cursor()
-                query = f"DELETE FROM customers WHERE customer_id = {customer[0]};"
-                print(query)
-                cur.execute(query)
+                query = "DELETE FROM customers WHERE customer_id = %s;"
+                cur.execute(query, (customer[0], ))
                 conn.commit()
                 print(cur.statusmessage)
                 cur.close()
@@ -103,8 +102,8 @@ def search_customers():
             if confirmation == 'y':
                 conn = psycopg2.connect(**db_params)
                 cur = conn.cursor()
-                query = f"UPDATE customers SET {choices[int(choice)-1]} = '{new_value}' WHERE customer_id = {customer[0]};"
-                cur.execute(query)
+                query = f"UPDATE customers SET {choices[int(choice)-1]} = %s WHERE customer_id = {customer[0]};"
+                cur.execute(query, (new_value, ))
                 conn.commit()
                 print(cur.statusmessage)
                 cur.close()
@@ -122,8 +121,8 @@ def new_customer():
     if confirmation == 'y':
         conn = psycopg2.connect(**db_params)
         cur = conn.cursor()
-        query = f"INSERT INTO customers (first_name, last_name, email, phone) VALUES ('{first_name}', '{last_name}', '{email}', '{phone}')"
-        cur.execute(query)
+        query = "INSERT INTO customers (first_name, last_name, email, phone) VALUES (%s, %s, %s, %s)"
+        cur.execute(query, (first_name, last_name, email, phone))
         conn.commit()
         print(cur.statusmessage)
         cur.close()
@@ -131,39 +130,3 @@ def new_customer():
         manage_customers()
     else:
         manage_customers()
-
-
-
-#     (s) search for customer by name
-#         matches:
-#         ------|-----------------|---------------
-#         id    | name            | address
-#         ------|-----------------|---------------
-#         id    | name            | address
-#         ------|-----------------|---------------
-#         id    | name            | address
-#         ------|-----------------|---------------
-
-#         -- select user by id: 
-        
-#         -- 
-#         USER NAME
-#         select an option:
-#             (d) delete user
-#             (u) update user
-#                 1. update name
-#                 2. update address
-#                 ...
-#                 -- select option to update:
-#                 --enter new value
-#                 -- Confirm
-#                 --success/failure
-    
-#     (n) create new customer
-#         -- input name
-#         -- input email
-#         ....
-#         -- confirm (display info):
-#         -- success/failure
-
-#     (b) go back
