@@ -1,3 +1,6 @@
+from .manage_customers import manage_customers
+from .inventory import get_inventory
+
 menu_msg = ''' 
         Menu :
         (1) Search books
@@ -11,8 +14,10 @@ def display_menu():
     if choice == '1':
         print('you picked 1')
     elif choice == '2':
+        get_inventory()
         return
     elif choice == '3':
+        manage_customers()
         return
     elif choice == 'x':
         return
