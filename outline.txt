@@ -1,0 +1,78 @@
+Menu :
+        (1) Search books
+        (2) Open inventory
+        (3) Manage customers 
+        (x) Exit
+
+
+
+
+
+(1) Search books
+        - search for a book by title:
+            -- print list of books top 10
+                ID | TITLE
+                [1]| title
+                [2]| title
+                [3]| title
+            -- To add to a book to the inventory enter the id:
+            -- How many copies do you want to add to the inventory?:
+            -- Confirm adding -x- copies of -title- to inventory (y/n):
+            -- print success/failure message
+
+
+(2) Open inventory:
+            ------|-----------------|---------------
+            id    | title           | author
+            ------|-----------------|---------------
+            id    | title           | author
+            ------|-----------------|---------------
+            id    | title           | author
+            ------|-----------------|---------------
+
+
+(3) Manage customers:
+    (l) list all customers
+        ------|-----------------|---------------
+        id    | name            | address
+        ------|-----------------|---------------
+        id    | name            | address
+        ------|-----------------|---------------
+        id    | name            | address
+        ------|-----------------|---------------
+
+
+
+    (s) search for customer by name
+        matches:
+        ------|-----------------|---------------
+        id    | name            | address
+        ------|-----------------|---------------
+        id    | name            | address
+        ------|-----------------|---------------
+        id    | name            | address
+        ------|-----------------|---------------
+
+        -- select user by id: 
+        
+        -- 
+        USER NAME
+        select an option:
+            (d) delete user
+            (u) update user
+                1. update name
+                2. update address
+                ...
+                -- select option to update:
+                --enter new value
+                -- Confirm
+                --success/failure
+    
+    (n) create new customer
+        -- input name
+        -- input email
+        ....
+        -- confirm (display info):
+        -- success/failure
+
+    (b) go back
