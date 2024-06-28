@@ -1,6 +1,7 @@
 import api_functions
 from ui.menu import display_menu
 
+
 def main():
     welcome_msg = '''
     ------------Welcome to Bookify!------------
