@@ -1,48 +1,50 @@
 import api_functions
 import db_functions
-import classes.library as library
+from classes.library import Library
+from classes.book import Book
 
  
 
 
 def search_books():  
 
-    inventory_json = db_functions.get_table_as_json_array(table_name = 'books') 
-    inventory = library.from_dict(inventory_json)
-
-    amount_of_search_results = 10   
-    print('(1) Search books')  
-    query = input("\t- search for a book by title: ")
-    books_results = api_functions.search_books(query , amount_of_search_results) #search_books function is needed. return here a list of book objects. randomize a price for the book object
-    books_results = library.from_dict(books_results)
-
-    print(f'\t\t-- Top {amount_of_search_results} books matching your search results: ')
-    print(f'\t\t\tID | TITLE')
-    for id,book in enumerate(books_results):
-        print(f'[{id + 1}]| {book.title}')
-
-    book_id = input('\t\t-- To add a book to the inventory, enter the id: ')
+    print(
+        '''
+        Search books
+        ------------''')
     
-    try:
-        book_id = int(book_id)
-        if book_id not in range(1,11):
-            raise ValueError
-        else:
-            selected_book = books_results[book_id-1]
+    query = input("\tSearch a book by title: ")
         
-    except ValueError:
-        print('Invalid Input! A number between 1-10 must be provided. Try again...')
-        search_books()
-    
-    amount_of_books = input('\t\t-- How many copies do you want to add to the inventory?: ')
+    search_results = api_functions.search_books(query, 10)
 
-    try:
-        amount_of_books = int(amount_of_books)
+    if search_results:
+        display_search_results(search_results)
 
-    except ValueError:
-        print('Invalid Input! A number must be provided. Try again...')
-        search_books()
+        try:
+            id = int(input("\n\tTo add a book to the inventory, enter the id (1-10): "))
+            if id not in range(1,11):
+                raise ValueError
+        except ValueError:
+            print("Invalid input. Must provide an integer between 1-10.")
+            search_books()
+        user_selected_book_json = search_results[id-1]
 
-    to_add = input(f'Confirm adding {amount_of_books} copies of {selected_book.get_title()} to inventory (y/n): ') 
-    if to_add == 'y':
-        inventory.add_book(selected_book) # Need to implement - create new book or change stock if already exists
+        try:
+            amount = int(input("\tHow many copies do you want to add to the inventory?: "))
+        except ValueError:
+            print("Invalid input. Must provide a whole number.")
+            search_books()
+        user_selected_book_json['amount_total'] = user_selected_book_json['amount_available'] = amount
+
+        to_add = input(f"\tConfirm adding {amount} copies of {user_selected_book_json['title']} to inventory (y/n): ")
+        if (to_add == 'y'):
+            db_functions.add_book_to_books_table(user_selected_book_json)
+            print("\tBook was added successfuly.")
+
+
+
+def display_search_results(search_results :list[dict]) -> None:
+    print(f"\tTop {len(search_results)} books matching your results: ")
+    print("\tID | TITLE")
+    for id,result in enumerate(search_results):
+        print(f"\t[{id+1}]| {result['title']}") #id starts with 0, so changed it to id+1

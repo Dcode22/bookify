@@ -1,6 +1,17 @@
 import requests
+import random
+from datetime import datetime
 
 API_KEY = 'AIzaSyCXTZkmqAbEoXaEPX-etOG-BSFVZuwN_K4'
+
+def parse_date(date_str):
+    try:
+        #try to parse YYYY-MM-DD
+        return datetime.strptime(date_str, '%Y-%m-%d').date()
+    except ValueError:
+        return None #otherwise, return None since that's the only format the postgres date column can accept
+
+
 
 def search_books(book_name: str, amount_of_books: int) -> list:
     url = f'https://www.googleapis.com/books/v1/volumes?q={book_name}&key={API_KEY}'
@@ -17,23 +28,29 @@ def search_books(book_name: str, amount_of_books: int) -> list:
             volume_info = book.get('volumeInfo', {})
             image_links = volume_info.get('imageLinks', {})
 
+            buying_price = random.randint(20,30)
+            selling_price = random.randint(60,129)
+
+            published_date_str = volume_info.get('publishedDate', None)
+            published_date = parse_date(published_date_str) if published_date_str else None
+
             list_of_filtered_books.append({
                 'book_id': book.get('id'),
                 'title': volume_info.get('title'),
-                'description': volume_info.get('description'),
-                'authors': volume_info.get('authors'),
-                'genre': volume_info.get('categories'),
-                'published_date': volume_info.get('publishedDate'),
-                'language': volume_info.get('language'),
-                'page_count': volume_info.get('pageCount'),
-                'cover_image_url': image_links.get('smallThumbnail'),
-                'publisher': volume_info.get('publisher'),
-                'avg_rating': volume_info.get('averageRating'),
-                'maturity_rate': volume_info.get('maturityRating'),
-                'buying price' : 10,
-                'selling_price' : 20,
-                'amount_total' : 100,
-                'amount_available' : 100 
+                'description': volume_info.get('description',None),
+                'authors': volume_info.get('authors',[None])[0],
+                'genre': volume_info.get('categories',[None])[0],
+                'published_date': published_date,
+                'language': volume_info.get('language', None),
+                'page_count': volume_info.get('pageCount', None),
+                'cover_image_url': image_links.get('smallThumbnail', None),
+                'publisher': volume_info.get('publisher', None),
+                'avg_rating': volume_info.get('averageRating', None),
+                'maturity_rate': volume_info.get('maturityRating', None),
+                'buying_price' : buying_price,
+                'selling_price' : selling_price,
+                'amount_total' : None,
+                'amount_available' : None
             })
 
         return list_of_filtered_books
@@ -46,6 +63,8 @@ def search_books(book_name: str, amount_of_books: int) -> list:
         print(f"Timeout Error: {errt}")
     except requests.exceptions.RequestException as err:
         print(f"Oops: Something Else: {err}")
+    except KeyError:
+        print("\tNo results for this search term. Try a different title...")
 
 books_list = search_books("Harry Potter", 5)
 
