@@ -8,18 +8,18 @@ import classes.library as library
 def search_books():  
 
     inventory_json = db_functions.get_table_as_json_array(table_name = 'books') 
-    inventory = library.from_dict(inventory_json)
+    inventory = library.Library.from_dict(inventory_json)
 
     amount_of_search_results = 10   
-    print('(1) Search books')  
+    print('\n(1) Search books')  
     query = input("\t- search for a book by title: ")
-    books_results = api_functions.search_books(query , amount_of_search_results) #search_books function is needed. return here a list of book objects. randomize a price for the book object
-    books_results = library.from_dict(books_results)
+    books_results_json = api_functions.search_books(query , amount_of_search_results) 
+    books_results = library.Library.from_dict(books_results_json) 
 
     print(f'\t\t-- Top {amount_of_search_results} books matching your search results: ')
-    print(f'\t\t\tID | TITLE')
+    print(f'\t\tID | TITLE')
     for id,book in enumerate(books_results):
-        print(f'[{id + 1}]| {book.title}')
+        print(f'\t\t[{id + 1}]| {book.title}')
 
     book_id = input('\t\t-- To add a book to the inventory, enter the id: ')
     
@@ -40,9 +40,9 @@ def search_books():
         amount_of_books = int(amount_of_books)
 
     except ValueError:
-        print('Invalid Input! A number must be provided. Try again...')
+        print('\t\tInvalid Input! A number must be provided. Try again...')
         search_books()
 
-    to_add = input(f'Confirm adding {amount_of_books} copies of {selected_book.get_title()} to inventory (y/n): ') 
+    to_add = input(f'\t\tConfirm adding {amount_of_books} copies of {selected_book.get_title()} to inventory (y/n): ') 
     if to_add == 'y':
         inventory.add_book(selected_book) # Need to implement - create new book or change stock if already exists

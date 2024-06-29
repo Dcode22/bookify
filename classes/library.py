@@ -24,9 +24,15 @@ class Library:
         inventory_summary = '\n'.join(book.__str__() for book in self.inventory)
         return f"Library Inventory: \n{inventory_summary}"
     
+    def __contains__ (self,book :'Book') -> bool :
+        return any(book.book_id == b.book_id for b in self.inventory)
+    
        
     def update_inventory_size(self) -> None:
-        self.inventory_size = len(self.inventory)
+        sum = 0
+        for book in self.inventory:
+            sum += book.amount_total
+        self.inventory_size = sum
 
 
     def get_inventory_size(self) -> int:
@@ -56,10 +62,16 @@ class Library:
     
 
     def add_book (self, book : 'Book', amount) -> None:
-        book.selling_price = book.buying_price * self.markup
-        book.update_book_amount(amount)
-        self.inventory.append(book)
-        self.update_inventory_size()
+        #if book exists already in the list - using __contains__ method
+        if book in self:
+            for i,b in enumerate(self.inventory):
+                if b.book_id == book.book_id:
+                    self.inventory[i].amount_total += amount
+                    break
+        else:
+            self.inventory.append(book)
+            self.update_inventory_size()
+
 
 
     def remove_book (self, book : 'Book') -> None:
