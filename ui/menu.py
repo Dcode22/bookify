@@ -3,12 +3,12 @@ from .inventory import get_inventory
 from .search_books import search_books
 
 menu_msg = ''' 
-        Menu :
-        (1) Search books
-        (2) Open inventory
-        (3) Manage customers 
-        (x) Exit
-        Choose an option >> '''
+Menu :
+(1) Search books
+(2) Open inventory
+(3) Manage customers 
+(x) Exit
+Choose an option >> '''
 
 def display_menu():
     choice = input(menu_msg)
