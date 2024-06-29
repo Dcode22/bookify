@@ -1,16 +1,9 @@
 import psycopg2
 import psycopg2.sql
-
-HOST = "localhost"
-PORT = "5432"
-USER = "postgres"
-PASSWORD = "cluster"
-DBNAME = "bookify"
+from database_settings import db_params
 
 def create_connection():
-    connection = psycopg2.connect(
-        host=HOST, port=PORT, user=USER, password=PASSWORD, dbname=DBNAME
-    )
+    connection = psycopg2.connect(**db_params)
     cursor = connection.cursor()
     return connection, cursor
 
