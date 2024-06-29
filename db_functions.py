@@ -1,5 +1,5 @@
 import psycopg2
-import json
+import psycopg2.sql
 
 HOST = "localhost"
 PORT = "5432"
@@ -35,3 +35,26 @@ def get_table_as_json_array(table_name : str) -> list[dict]:
     except Exception as e:
         print(f"Error fetching data from {table_name}. Error: {e}")
         return None
+    
+
+
+def add_book_to_books_table(book_data:dict) -> None:
+    table_name = 'books'
+    connection, cursor = create_connection()
+
+    insert_query = psycopg2.sql.SQL("""
+    INSERT INTO books (
+        book_id, title, description, authors, genre, published_date, language, 
+        page_count, cover_image_url, publisher, avg_rating, maturity_rate, 
+        buying_price, selling_price, amount_total, amount_available
+    ) VALUES (
+        %(book_id)s, %(title)s, %(description)s, %(authors)s, %(genre)s, %(published_date)s, %(language)s, 
+        %(page_count)s, %(cover_image_url)s, %(publisher)s, %(avg_rating)s, %(maturity_rate)s, 
+        %(buying_price)s, %(selling_price)s, %(amount_total)s, %(amount_available)s
+    )
+""")
+    
+    cursor.execute(insert_query,book_data)
+    connection.commit()
+    cursor.close()
+    connection.close()

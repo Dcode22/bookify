@@ -30,7 +30,7 @@ def search_books(book_name: str, amount_of_books: int) -> list:
                 'publisher': volume_info.get('publisher'),
                 'avg_rating': volume_info.get('averageRating'),
                 'maturity_rate': volume_info.get('maturityRating'),
-                'buying price' : 10,
+                'buying_price' : 10,
                 'selling_price' : 20,
                 'amount_total' : 100,
                 'amount_available' : 100 
