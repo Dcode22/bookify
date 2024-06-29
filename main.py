@@ -4,8 +4,8 @@ from ui.menu import display_menu
 
 def main():
     welcome_msg = '''
-    ------------Welcome to Bookify!------------
-    ---The World's #1 Book Management System---'''
+------------Welcome to Bookify!------------
+---The World's #1 Book Management System---'''
     print(welcome_msg)
     while True:
         display_menu()

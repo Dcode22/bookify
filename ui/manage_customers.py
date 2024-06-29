@@ -3,18 +3,18 @@ from database_settings import db_params
 from .display_table import print_table
 def manage_customers():
     print('''
-          CUSTOMER MANAGEMENT
-          -------------------
-          '''
+CUSTOMER MANAGEMENT
+-------------------
+'''
     )
     choice = input(
         '''
-        (l) List all customers
-        (s) Search for customer
-        (n) Create new customer
-        (b) Go back to main menu
-        Enter an option:
-        '''
+(l) List all customers
+(s) Search for customer
+(n) Create new customer
+(b) Go back to main menu
+Enter an option:
+'''
     )
 
     if choice == 'l':
@@ -61,10 +61,10 @@ def search_customers():
     if customer:
         print(f"{customer[1]} {customer[2]}".upper())
         choice = input('''
-            select an option:
-              (d) delete user
-              (u) update user
-              ''')
+select an option:
+(d) delete user
+(u) update user
+''')
         if choice == 'd':
             confirmation = input(f'To confirm that you want to permanently delete the customer {customer[1]} {customer[2]}, type yes, otherwise type x:')
             if confirmation == 'yes':
@@ -80,11 +80,11 @@ def search_customers():
                 manage_customers()
         elif choice == 'u':
             choice = input('''
-                (1) Update first name
-                (2) Update last name
-                (3) Update email address
-                (4) Update phone number
-            ''')
+(1) Update first name
+(2) Update last name
+(3) Update email address
+(4) Update phone number
+''')
             choices = ['first_name', 'last_name', 'email', 'phone']
             new_value = ''
             if choice == '1':
