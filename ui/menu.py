@@ -11,19 +11,18 @@ Menu :
 Choose an option >> '''
 
 def display_menu():
-    choice = input(menu_msg)
-    if choice == '1':
-        search_books()
-    elif choice == '2':
-        get_inventory()
-        return
-    elif choice == '3':
-        manage_customers()
-        return
-    elif choice == 'x':
-        return
-    else:
-        print('invalid choice')
-        display_menu()
+    while True:
+        choice = input(menu_msg)
+        if choice == '1':
+            search_books()
+        elif choice == '2':
+            get_inventory()
+        elif choice == '3':
+            manage_customers()
+        elif choice == 'x':
+            break
+        else:
+            print('invalid choice')
+            display_menu()
     
     

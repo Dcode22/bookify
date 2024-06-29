@@ -76,6 +76,7 @@ select an option:
                 print(cur.statusmessage)
                 cur.close()
                 conn.close()
+                manage_customers()
             else:
                 manage_customers()
         elif choice == 'u':
@@ -108,7 +109,7 @@ select an option:
                 print(cur.statusmessage)
                 cur.close()
                 conn.close()
-                manage_customers()
+                search_customers()
 
 def new_customer():
     print("CREATE NEW CUSTOMER")

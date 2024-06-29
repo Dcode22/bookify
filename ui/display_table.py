@@ -7,14 +7,17 @@ def print_table(table_headers, rows):
     
     header_row = ' | '.join(header.ljust(col_widths[i]) for i, header in enumerate(table_headers))
     separator_row = '-+-'.join('-' * col_widths[i] for i in range(len(table_headers)))
-
-    print("This is your books inventory: ->")
+    
     print(separator_row)
     print(header_row)
     print(separator_row)
 
     for row in rows:
-        data_row = ' | '.join(str(field).ljust(col_widths[i]) for i, field in enumerate(row))
+        data_row = ' | '.join(truncate_field(str(field)).ljust(col_widths[i]) for i, field in enumerate(row))
         print(data_row)
         print(separator_row)
 
+def truncate_field(field):
+    if len(field) > 45:
+        return field[:42] + '...'
+    return field
