@@ -40,7 +40,7 @@ class Library:
         return self.inventory_size
 
 
-    def search_book(self, query: str) -> list:
+    def search_book(self, query: str) -> list['Book']:
         results = []
         query = query.lower()
         for book in self.inventory:
