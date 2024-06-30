@@ -3,8 +3,9 @@ from database_settings import db_params
 from .display_table import print_table
 def manage_customers():
     print('''
-CUSTOMER MANAGEMENT
--------------------
++---------------------+
+| CUSTOMER MANAGEMENT |
++---------------------+
 '''
     )
     choice = input(
