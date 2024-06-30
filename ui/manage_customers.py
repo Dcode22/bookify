@@ -3,9 +3,9 @@ from database_settings import db_params
 from .display_table import print_table
 def manage_customers():
     print('''
-CUSTOMER MANAGEMENT
--------------------
-'''
++---------------------+
+| CUSTOMER MANAGEMENT |
++---------------------+'''
     )
     choice = input(
         '''
@@ -199,7 +199,9 @@ CREATE NEW CUSTOMER
     if phone == 'x':
         manage_customers()
     print(f"FIRST NAME: {first_name}, LAST NAME: {last_name}, EMAIL: {email}, PHONE: {phone}")
+    
     confirmation = input("Are you sure you want to create this customer? (y/n)")
+    
     if confirmation == 'y':
         try:
             conn = psycopg2.connect(**db_params)

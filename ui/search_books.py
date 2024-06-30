@@ -42,7 +42,7 @@ def search_books():
             print("\tBook was added successfuly.")
 
 
-
+    
 def display_search_results(search_results :list[dict]) -> None:
     print(f"\tTop {len(search_results)} books matching your results: ")
     print("\tID | TITLE")
