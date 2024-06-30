@@ -39,7 +39,7 @@ def list_all_customers():
         query = "SELECT * FROM customers"
         cur.execute(query)
         rows = cur.fetchall()
-        table_headers = ["CUSTOMER ID", "FIRST NAME", "LAST NAME", "EMAIL", "PHONE"]
+        table_headers = ["CUSTOMER ID", "FIRST NAME", "LAST NAME", "EMAIL", "PHONE", "PURCHASES"]
         print_table(table_headers, rows)
         cur.close()
         conn.close()
@@ -57,7 +57,7 @@ def search_customers():
         query = f"SELECT * FROM customers WHERE LOWER(CONCAT(first_name, ' ', last_name, ' ', email)) LIKE LOWER('%{search}%');"
         cur.execute(query)
         rows = cur.fetchall()
-        table_headers = ["CUSTOMER ID", "FIRST NAME", "LAST NAME", "EMAIL", "PHONE"]
+        table_headers = ["CUSTOMER ID", "FIRST NAME", "LAST NAME", "EMAIL", "PHONE", "PURCHASES"]
         print_table(table_headers, rows)
         cur.close()
         conn.close()
