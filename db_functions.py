@@ -3,6 +3,7 @@ import psycopg2.sql
 from database_settings import db_params
 from classes.book import Book
 from classes.customer import Customer
+import json
 
 def create_connection():
     connection = psycopg2.connect(**db_params)
@@ -89,10 +90,12 @@ def update_customer_purchase_list(customer: 'Customer'):
 
     customer_id = customer.get_customer_id()
     purchases_list = customer.get_purchases_list()
+    purchases_array = '{' + ','.join(f'"{item}"' for item in purchases_list) + '}'
 
-    update_query = f"UPDATE TABLE {table_name} SET purchases_list = {purchases_list} WHERE customer_id = {customer_id}"
+    update_query = f"UPDATE {table_name} SET purchases_list = %s WHERE customer_id = %s"
+    print("Item was added succesfully!")
 
-    cursor.execute(update_query)
+    cursor.execute(update_query,(purchases_array,customer_id))
     connection.commit()
 
     cursor.close()

@@ -8,6 +8,8 @@ class Customer:
         self.email = email
         self.phone = phone
         self.books_list = books_list
+        if self.books_list is None:
+            self.books_list = []
 
     
     def __str__(self) -> str:
@@ -22,10 +24,12 @@ class Customer:
     def update_phone(self, new_phone: str) -> None:
         self.phone = new_phone
 
-    def get_purchases_list(self):
+    def get_purchases_list(self) -> list[str]:
         book_title_list = []
         for book in self.books_list:
-            book_title_list.append(book.get_title())
+            book_title_list.append(book)
+
+        return book_title_list
     
     def to_dict(self) -> dict:
         return {
@@ -38,7 +42,7 @@ class Customer:
         }
     
     def purchase(self, book: 'Book') -> None:
-        self.books_list.append(book)
+        self.books_list.append(book.get_title())
 
     @classmethod
     def from_dict(cls, customer_dict : dict) -> 'Customer':
