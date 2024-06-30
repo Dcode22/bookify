@@ -71,6 +71,9 @@ class Book:
     def get_title(self):
         return self.title
     
+    def get_price(self):
+        return self.selling_price
+    
 
     def to_dict (self):
         return {
@@ -108,6 +111,8 @@ class Book:
             book_dict['publisher'],
             book_dict['avg_rating'],
             book_dict['maturity_rate'],
+            book_dict['buying_price'],
+            book_dict['selling_price'],
             book_dict.get('amount_total', 1),
             book_dict.get('amount_available', 1)
         )

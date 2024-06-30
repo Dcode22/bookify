@@ -40,7 +40,7 @@ class Library:
         return self.inventory_size
 
 
-    def search_book(self, query: str) -> list:
+    def search_book(self, query: str) -> list['Book']:
         results = []
         query = query.lower()
         for book in self.inventory:
@@ -83,7 +83,8 @@ class Library:
     def sell_to_customer(self, customer : 'Customer', book : 'Book', amount : int =1, ):
         price = book.selling_price
         self.budget += price
-        customer.add_book(book)
+        self.update_inventory_size()
+        
 
     @classmethod
     def from_dict(cls,inventory_json : list[dict]) -> 'Library':
