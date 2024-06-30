@@ -13,13 +13,19 @@ class Customer:
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} (ID: {self.customer_id})"
 
-
+    def get_customer_id(self):
+        return self.customer_id
+    
     def update_email(self, new_email: str) -> None:
         self.email = new_email
 
     def update_phone(self, new_phone: str) -> None:
         self.phone = new_phone
 
+    def get_purchases_list(self):
+        book_title_list = []
+        for book in self.books_list:
+            book_title_list.append(book.get_title())
     
     def to_dict(self) -> dict:
         return {
@@ -28,9 +34,11 @@ class Customer:
             'last_name': self.last_name,
             'email': self.email,
             'phone': self.phone,
-            'books_list' : self.books_list
+            'purchases_list' : self.books_list
         }
     
+    def purchase(self, book: 'Book') -> None:
+        self.books_list.append(book)
 
     @classmethod
     def from_dict(cls, customer_dict : dict) -> 'Customer':
@@ -40,5 +48,5 @@ class Customer:
             customer_dict['last_name'],
             customer_dict['email'],
             customer_dict['phone'],
-            customer_dict['books_list']
+            customer_dict['purchases_list']
         )

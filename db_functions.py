@@ -1,6 +1,8 @@
 import psycopg2
 import psycopg2.sql
 from database_settings import db_params
+from classes.book import Book
+from classes.customer import Customer
 
 def create_connection():
     connection = psycopg2.connect(**db_params)
@@ -78,3 +80,21 @@ def add_book_to_books_table(book_data:dict) -> None:
 
     cursor.close()
     connection.close()
+
+
+def update_customer_purchase_list(customer: 'Customer'):
+    connection, cursor = create_connection()
+
+    table_name = 'customers'
+
+    customer_id = customer.get_customer_id()
+    purchases_list = customer.get_purchases_list()
+
+    update_query = f"UPDATE TABLE {table_name} SET purchases_list = {purchases_list} WHERE customer_id = {customer_id}"
+
+    cursor.execute(update_query)
+    connection.commit()
+
+    cursor.close()
+    connection.close()
+
