@@ -5,8 +5,7 @@ def manage_customers():
     print('''
 +---------------------+
 | CUSTOMER MANAGEMENT |
-+---------------------+
-'''
++---------------------+'''
     )
     choice = input(
         '''
