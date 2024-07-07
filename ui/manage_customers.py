@@ -1,5 +1,5 @@
 import psycopg2
-from database_settings import db_params
+# from database_settings import db_params
 from .display_table import print_table
 def manage_customers():
     print('''
